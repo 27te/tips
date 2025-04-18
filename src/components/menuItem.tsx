@@ -1,16 +1,19 @@
-import type { MenuItem } from "../types";
+import { Dispatch } from 'react';
+import type { MenuItem } from '../types';
+import { OrderActions } from '../reducers/order.reducer';
 type MenuItemProps = {
   item: MenuItem;
-  addItem: (item: MenuItem) => void;
+
+  dispatch: Dispatch<OrderActions>;
 };
-export function MenuItem({ item, addItem }: MenuItemProps) {
+export function MenuItem({ item, dispatch }: MenuItemProps) {
   return (
     <button
-      className="flex justify-between p-3 w-full border-2 border-teal-400 hover:bg-teal-200"
-      onClick={() => addItem(item)}
+      className='flex justify-between w-full p-3 border-2 border-teal-400 hover:bg-teal-200'
+      onClick={() => dispatch({ type: 'add-item', payload: { item: item } })}
     >
       <p>{item.name}</p>
-      <p className="font-bold">${item.price}</p>
+      <p className='font-bold'>${item.price}</p>
     </button>
   );
 }
